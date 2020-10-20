@@ -35,8 +35,8 @@ public class DragShoot : MonoBehaviour
         var line = this.GetComponent<LineRenderer>();
         if( line == null ){
             line = this.gameObject.AddComponent<LineRenderer>();
-            line.material = new Material( Shader.Find( "Sprites/Default" ) ) { color = Color.red };
-            line.SetWidth( 0.7f, 0.7f );
+            line.material = new Material( Shader.Find( "Sprites/Default" ) ) { color = Color.yellow };
+            line.SetWidth( 0.3f, 0.3f );
             line.SetColors( Color.yellow, Color.yellow );
         }
         mouseReleasePos2 = Input.mousePosition;

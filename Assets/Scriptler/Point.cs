@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Point : MonoBehaviour
 {
+    private static int score;
     Rigidbody rb;
+    public Text txt;
     // Start is called before the first frame update
     void Start(){
         rb = GetComponent<Rigidbody>();
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+            score = 0;
+        txt.text = txt.text +score;
     }
 
     // Update is called once per frame
@@ -18,8 +24,11 @@ public class Point : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.tag == "kale"){
-            Debug.Log("The player has collided with the wall!");
-            SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+            updateScore();
+            if(SceneManager.GetActiveScene().buildIndex<3)
+                SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+            else
+                SceneManager.LoadScene (0);
         }
         
         //eger engele carptiysa ve hızı 0 olduysa scene tekrar calistir
@@ -30,5 +39,9 @@ public class Point : MonoBehaviour
             }
         }
     
+    }
+    private void updateScore(){
+        score = score + 10;
+        txt.text = txt.text +score;
     }
 }
