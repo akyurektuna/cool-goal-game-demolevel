@@ -6,7 +6,7 @@ public class DragShoot : MonoBehaviour
 {
     private Vector3 mousePressDownPos;
     private Vector3 mouseReleasePos;
-
+    private Vector3 mouseReleasePos2;
     private Rigidbody rb;
 
     private bool isShoot;
@@ -21,10 +21,28 @@ public class DragShoot : MonoBehaviour
         mousePressDownPos = Input.mousePosition;
     }
 
+    private void OnMouseDrag() {
+        drawRoute(mousePressDownPos);    
+    }
     private void OnMouseUp()
     {
         mouseReleasePos = Input.mousePosition;
         Shoot(mouseReleasePos-mousePressDownPos);
+    }
+
+    //????????**********
+    private void drawRoute(Vector3 pos){
+        var line = this.GetComponent<LineRenderer>();
+        if( line == null ){
+            line = this.gameObject.AddComponent<LineRenderer>();
+            line.material = new Material( Shader.Find( "Sprites/Default" ) ) { color = Color.red };
+            line.SetWidth( 0.7f, 0.7f );
+            line.SetColors( Color.yellow, Color.yellow );
+        }
+        mouseReleasePos2 = Input.mousePosition;
+        Vector3 extendedVector = (mouseReleasePos2-pos);
+        extendedVector = Quaternion.Euler(90, -90, 90) * extendedVector;
+        line.SetPosition(0,-extendedVector);
     }
 
     private float forceMultiplier = 4;

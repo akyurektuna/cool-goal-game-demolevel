@@ -16,7 +16,14 @@ public class NextScene : MonoBehaviour
     {
         
     }
+    public void thisScene(){
+      SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex); 
+    }
     public void nextScene(){
         SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void menu(){
+        SceneManager.LoadScene (0);
     }
 }
