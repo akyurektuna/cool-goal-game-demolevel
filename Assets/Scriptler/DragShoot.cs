@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
@@ -11,8 +13,11 @@ public class DragShoot : MonoBehaviour
 
     private bool isShoot;
     
+    public Text tutorialTxt;
     void Start()
     {
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+            tutorialTxt.text = "Drag and drop to shoot the ball";
         rb = GetComponent<Rigidbody>();
     }
 
@@ -26,6 +31,8 @@ public class DragShoot : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+            tutorialTxt.text = "";
         mouseReleasePos = Input.mousePosition;
         Shoot(mouseReleasePos-mousePressDownPos);
     }
